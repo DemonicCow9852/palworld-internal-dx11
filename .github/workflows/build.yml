@@ -14,14 +14,11 @@ jobs:
       - name: Add MSBuild to PATH
         uses: microsoft/setup-msbuild@v2
 
-      - name: Build SDKLibrary
-        run: msbuild libs/SDKLibrary/PalworldSDK.vcxproj /p:Configuration=Release /p:Platform=x64
-
-      - name: Build DLL
-        run: msbuild DX11-Base.vcxproj /p:Configuration=Release /p:Platform=x64
+      - name: Build Solution
+        run: msbuild DX11-Base.sln /p:Configuration=Release /p:Platform=x64
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: palworld-dll
-          path: x64/Release/*.dll
+          path: bin/*.dll
