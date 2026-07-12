@@ -1,25 +1,22 @@
 # PalWorld-NetCrack
 Internal ImGui trainer for Palworld singleplayer, built on the DX11-Internal-Base template.
 
-[COLOR="Lime"][B]Confirmed Working Features (singleplayer):[/B][/COLOR]
-
-[LIST]
-[*]Attack Hack (Damage Multiplier)
-[*]Defense Hack (Armor Multiplier)
-[*]Speed Hack (Walk/Swim/Fly/Custom, incl. while riding a flying Pal)
-[*]Infinite Stamina
-[*][COLOR="Red"]Infinite Ammo -> DON'T WORK, forgot to hide it[/COLOR]
-[*]FAKE God Mode
-[*]Max Weight Hack
-[*]FLY (Toggle Fly + vertical movement)
-[*]Player ESP / Pal ESP
-[*]Teleporter (Home, manual coordinate TP, Boss Locations, live Fast Travel Points, live Dungeon Entrances)
-[*]Player Modifiers (Revive, Unlock All Effigies, Reveal Whole Map)
-[*]Item Spawner & Quick-Tab Items (Use moderate amounts) -> ghost items
-[*]WORKING Item Duplication (Give / Duplicate item in slot / Duplicate ALL slots / Use item x1/x10/x100)
-[*]Manager Menu (list all characters, Kill / TP / MaskIt nickname spoof)
-[*]Debug ESP, Teleport Pals to Crosshair, Death Aura, Custom Waypoints (DEBUG tab)
-[/LIST]
+## Confirmed Working Features (singleplayer)
+- Attack Hack (Damage Multiplier)
+- Defense Hack (Armor Multiplier)
+- Speed Hack (Walk/Swim/Fly/Custom, incl. while riding a flying Pal)
+- Infinite Stamina
+- ~~Infinite Ammo~~ - doesn't work, forgot to hide it
+- FAKE God Mode
+- Max Weight Hack
+- FLY (Toggle Fly + vertical movement)
+- Player ESP / Pal ESP
+- Teleporter (Home, manual coordinate TP, Boss Locations, live Fast Travel Points, live Dungeon Entrances)
+- Player Modifiers (Revive, Unlock All Effigies, Reveal Whole Map)
+- Item Spawner & Quick-Tab Items (use moderate amounts -> ghost items)
+- Item Duplication (Give / Duplicate item in slot / Duplicate ALL slots / Use item x1/x10/x100)
+- Manager Menu (list all characters, Kill / TP / MaskIt nickname spoof)
+- Debug ESP, Teleport Pals to Crosshair, Death Aura, Custom Waypoints (DEBUG tab)
 
 ## AOBS
 > GObjects: `48 8B 05 ? ? ? ? 48 8B 0C C8 4C 8D 04 D1 EB 03`  
