@@ -1,7 +1,10 @@
 # PalWorld-NetCrack
 Internal ImGui trainer for Palworld, built on the DX11-Internal-Base template.
 
-## Confirmed Working Features (singleplayer)
+## Download
+[Latest Release](https://github.com/imtofy/palworld-internal-dx11/releases/latest) - NetCrack-PalWorld.dll + PalLauncher.exe
+
+## Confirmed Working Features
 - Attack Hack (Damage Multiplier)
 - Defense Hack (Armor Multiplier)
 - Speed Hack (Walk/Swim/Fly/Custom, incl. while riding a flying Pal)
