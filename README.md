@@ -1,5 +1,5 @@
 # PalWorld-NetCrack
-Internal ImGui trainer for Palworld singleplayer, built on the DX11-Internal-Base template.
+Internal ImGui trainer for Palworld, built on the DX11-Internal-Base template.
 
 ## Confirmed Working Features (singleplayer)
 - Attack Hack (Damage Multiplier)
