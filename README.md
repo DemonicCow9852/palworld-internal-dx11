@@ -6,7 +6,6 @@ Internal ImGui trainer for Palworld singleplayer, built on the DX11-Internal-Bas
 - Defense Hack (Armor Multiplier)
 - Speed Hack (Walk/Swim/Fly/Custom, incl. while riding a flying Pal)
 - Infinite Stamina
-- ~~Infinite Ammo~~ - doesn't work, forgot to hide it
 - FAKE God Mode
 - Max Weight Hack
 - FLY (Toggle Fly + vertical movement)
@@ -16,7 +15,6 @@ Internal ImGui trainer for Palworld singleplayer, built on the DX11-Internal-Bas
 - Item Spawner & Quick-Tab Items (use moderate amounts -> ghost items)
 - Item Duplication (Give / Duplicate item in slot / Duplicate ALL slots / Use item x1/x10/x100)
 - Manager Menu (list all characters, Kill / TP / MaskIt nickname spoof)
-- Debug ESP, Teleport Pals to Crosshair, Death Aura, Custom Waypoints (DEBUG tab)
 
 ## AOBS
 > GObjects: `48 8B 05 ? ? ? ? 48 8B 0C C8 4C 8D 04 D1 EB 03`  
