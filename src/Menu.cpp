@@ -155,6 +155,9 @@ static const std::map<std::string, std::string>& GetItemDisplayNameMap()
         addList(itemlist::seeds);
         addList(itemlist::tools);
         addList(itemlist::weapons);
+		addList(itemlist::implants);
+		addList(itemlist::ancientrelics);
+		addList(itemlist::versiononelaunchadditions);
     }
     return map;
 }
@@ -714,7 +717,7 @@ namespace DX11_Base
 
             ImGui::InputInt("Num To Add", &num_to_add);
 
-            ImGui::Combo("Item Category", &category, "All\0Accessories\0Ammo\0Armor\0Crafting Materials\0Eggs\0Food\0Hats\0Medicine\0Money\0Other\0Pal Spheres\0Seeds\0Tools\0Weapons\0");
+            ImGui::Combo("Item Category", &category, "All\0Accessories\0Ammo\0Armor\0Crafting Materials\0Eggs\0Food\0Hats\0Medicine\0Money\0Other\0Pal Spheres\0Seeds\0Tools\0Weapons\0Implants\0Ancient Relics\0Launch Additions\0");
 
             std::vector<const char*> list;
 
@@ -762,6 +765,15 @@ namespace DX11_Base
                 case 14:
                     list = itemlist::weapons;
                     break;
+				case 15:
+					list = itemlist::implants;
+					break;
+				case 16:
+					list = itemlist::ancientrelics;
+					break;
+				case 17:
+					list = itemlist::versiononelaunchadditions;
+					break;
                 default: // 0 = All
                     for (auto* item : itemlist::accessories) list.push_back(item);
                     for (auto* item : itemlist::ammo) list.push_back(item);
@@ -777,6 +789,9 @@ namespace DX11_Base
                     for (auto* item : itemlist::seeds) list.push_back(item);
                     for (auto* item : itemlist::tools) list.push_back(item);
                     for (auto* item : itemlist::weapons) list.push_back(item);
+					for (auto* item : itemlist::implants) list.push_back(item);
+					for (auto* item : itemlist::ancientrelics) list.push_back(item);
+					for (auto* item : itemlist::versiononelaunchadditions) list.push_back(item);
             }
 
             int cur_size = 0;

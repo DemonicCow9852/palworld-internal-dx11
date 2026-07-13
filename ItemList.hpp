@@ -214,7 +214,7 @@ namespace itemlist
         "PalItem_ColorfulBird|Tocotoco Feather",
         "Venom|Venom Gland",
         "Wood|Wood",
-        "Wool|Wool"
+        "Wool|Wool",
 		"SkyIslandOre|Soralite",
 		"WorldTreeOre|Paloxite",
     };
@@ -483,7 +483,7 @@ namespace itemlist
         "WheatSeeds|Wheat Seeds",
     };
 	
-	    const auto implants =
+	const auto implants =
     {
         "PalPassiveSkillChange_Consumable_WorldTree_ATK|Disposable Implant: Double-Edged Holy Sword",
 		"PalPassiveSkillChange_Consumable_WorldTree_DEF|Disposable Implant: Sacred Flesh",
