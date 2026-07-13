@@ -95,6 +95,14 @@ public:
 	int StatusPointLevel = 99;
 	int ElixirTier = 2;
 	bool IsNoUseBulletHook = false;
+	bool IsNoCraftMaterialCost = false;
+	bool IsNoBuildMaterialCost = false;
+	bool IsNoHunger = false;
+	bool IsIdealBodyTemp = false;
+	bool IsPalGodMode = false;
+	bool IsInfiniteDurability = false;
+	bool IsInstantFishing = false;
+	int RelicGrantCount = 10;
 
 	// Pal Editor (Team)
 	int SelectedPartyPalIndex = -1;

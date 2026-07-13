@@ -1262,6 +1262,80 @@ void InstantReload()
 	pPalCharacter->ShooterComponent->ReloadWeaponImmediate_ToServer(weapon->GetMagazineSize(), dynamicData);
 }
 
+// Same CDO-write pattern as SetIgnoreOverWeightMove
+void SetNoCraftMaterialCost(bool bEnable)
+{
+	SDK::UPalDebugSetting* ds = SDK::UPalDebugSetting::GetDefaultObj();
+	if (ds) ds->bNotConsumeMaterialsInCraft = bEnable;
+}
+
+void SetNoBuildMaterialCost(bool bEnable)
+{
+	SDK::UPalDebugSetting* ds = SDK::UPalDebugSetting::GetDefaultObj();
+	if (ds) ds->bNotConsumeMaterialsInBuild = bEnable;
+}
+
+void SetInfiniteDurability(bool bEnable)
+{
+	SDK::UPalDebugSetting* ds = SDK::UPalDebugSetting::GetDefaultObj();
+	if (ds) ds->bIgnoreItemDurabilityDecrease = bEnable;
+}
+
+void SetInstantFishing(bool bEnable)
+{
+	SDK::UPalDebugSetting* ds = SDK::UPalDebugSetting::GetDefaultObj();
+	if (ds) ds->bIsFishingSuccess = bEnable;
+}
+
+// UPalCheatManager - same access pattern as ForceSaveWorld
+void GrantRelic(SDK::EPalRelicType type, __int32 count)
+{
+	APalPlayerController* appco = Config.GetPalPlayerController();
+	if (!appco) return;
+	auto* cheatManager = (SDK::UPalCheatManager*)appco->CheatManager;
+	if (!cheatManager) return;
+	cheatManager->GetRelic(type, count);
+}
+
+void SetNoHunger(bool bEnable)
+{
+	APalPlayerController* appco = Config.GetPalPlayerController();
+	if (!appco) return;
+	auto* cheatManager = (SDK::UPalCheatManager*)appco->CheatManager;
+	if (!cheatManager) return;
+	cheatManager->SetDebugFullStomachDecreaseRate(bEnable ? 0.0f : 1.0f); // 1.0 = normal rate, restore on disable
+}
+
+void SetIdealBodyTemp(bool bEnable)
+{
+	APalPlayerCharacter* pPalCharacter = Config.GetPalPlayerCharacter();
+	if (!pPalCharacter) return;
+	auto* tempComp = (SDK::UPalBodyTemperatureComponent*)pPalCharacter->GetComponentByClass(SDK::UPalBodyTemperatureComponent::StaticClass());
+	if (!tempComp) return;
+	tempComp->SetEnable(!bEnable); // disabling the component = no temperature effects at all
+}
+
+// Targets the currently-active partner Pal (OtomoPal) - same limitation as
+// party pal editing: works on the live actor, not pals still boxed/unspawned.
+void SetPalGodMode(bool bEnable)
+{
+	APalPlayerCharacter* pPalCharacter = Config.GetPalPlayerCharacter();
+	if (!pPalCharacter || !pPalCharacter->CharacterParameterComponent) return;
+
+	SDK::APalCharacter* otomoPal = pPalCharacter->CharacterParameterComponent->OtomoPal;
+	if (!otomoPal || !otomoPal->CharacterParameterComponent) return;
+
+	SDK::UPalCharacterParameterComponent* palParams = otomoPal->CharacterParameterComponent;
+	palParams->bIsEnableMuteki = bEnable;
+
+	if (bEnable)
+	{
+		SDK::FFixedPoint64 fullHp;
+		fullHp.Value = palParams->GetMaxHP().Value;
+		palParams->SetHP(fullHp);
+	}
+}
+
 // Diagnostic: prints the equipped weapon's actual ammo-related field/getter
 // values to console, so we can see directly whether IsRequiredBullet/
 // IsInfinityMagazine are really being set (and staying set) and whether the

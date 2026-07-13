@@ -220,6 +220,20 @@ namespace DX11_Base
 			//
 			//No longer hidden
 			ImGui::Checkbox("InfAmmo", &Config.IsInfinAmmo);
+			
+			ImGui::Checkbox("No Craft Material Cost", &Config.IsNoCraftMaterialCost);
+			
+			ImGui::Checkbox("No Build Material Cost", &Config.IsNoBuildMaterialCost);
+			
+			ImGui::Checkbox("No Hunger", &Config.IsNoHunger);
+			
+			ImGui::Checkbox("Ideal Body Temperature", &Config.IsIdealBodyTemp);
+			
+			ImGui::Checkbox("Pal God Mode (Active Partner)", &Config.IsPalGodMode);
+			
+			ImGui::Checkbox("Infinite Weapon Durability", &Config.IsInfiniteDurability);
+			
+			ImGui::Checkbox("Instant Fishing", &Config.IsInstantFishing);
 
             ImGui::Checkbox("AttackHack", &Config.IsAttackModiler);
             if (Config.IsAttackModiler)
@@ -322,6 +336,20 @@ namespace DX11_Base
                 ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
                 ImGui::SliderFloat("##PALESPDISTANCE", &Config.mPalESPDistance, 1.0f, 10000.0f, "%.0f", ImGuiSliderFlags_AlwaysClamp);
             }
+			
+			ImGui::Checkbox("No Craft Material Cost", &Config.IsNoCraftMaterialCost);
+			
+			ImGui::Checkbox("No Build Material Cost", &Config.IsNoBuildMaterialCost);
+			
+			ImGui::Checkbox("No Hunger", &Config.IsNoHunger);
+			
+			ImGui::Checkbox("Ideal Body Temperature", &Config.IsIdealBodyTemp);
+			
+			ImGui::Checkbox("Pal God Mode (Active Partner)", &Config.IsPalGodMode);
+			
+			ImGui::Checkbox("Infinite Weapon Durability", &Config.IsInfiniteDurability);
+			
+			ImGui::Checkbox("Instant Fishing", &Config.IsInstantFishing);
 
             ImGui::Separator();
             // "New Name" input + "Set New Name" button hidden, not needed.
@@ -339,6 +367,8 @@ namespace DX11_Base
             // One-shot, rarely-needed button - doesn't need to be prominent.
             if (ImGui::Button("Reveal Whole Map", ImVec2(ImGui::GetContentRegionAvail().x - 3, 20)))
                 RevealWholeMap();
+			if (ImGui::Button("Grant Relic (Effigy)"))
+				GrantRelic(SDK::EPalRelicType::HungerReduction, Config.RelicGrantCount); // swap enum per dropdown selection
         }
 
         // Emptied out - everything here moved to TABPlayer (Show Quick Tab, Open
@@ -1417,6 +1447,13 @@ namespace DX11_Base
         SetCanCraftAllItems(Config.IsCanCraftAllItems);
         SetCanBuildAllBuildings(Config.IsCanBuildAllBuildings);
         SetWeightlessDodge(Config.IsWeightlessDodge);
+		SetNoCraftMaterialCost(Config.IsNoCraftMaterialCost);
+		SetNoBuildMaterialCost(Config.IsNoBuildMaterialCost);
+		SetNoHunger(Config.IsNoHunger);
+		SetIdealBodyTemp(Config.IsIdealBodyTemp);
+		SetPalGodMode(Config.IsPalGodMode);
+		SetInfiniteDurability(Config.IsInfiniteDurability);
+		SetInstantFishing(Config.IsInstantFishing);
 
         if (Config.IsFreezeSlot)
             FreezeSlotItemCount(Config.FreezeSlotIndex, Config.FreezeSlotTarget);

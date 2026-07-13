@@ -222,6 +222,22 @@ void AddWaypointLocation(std::string wpName);
 
 void RenderWaypointsToScreen();
 
+void SetNoCraftMaterialCost(bool bEnable);
+
+void SetNoBuildMaterialCost(bool bEnable);
+
+void GrantRelic(SDK::EPalRelicType type, __int32 count);
+
+void SetNoHunger(bool bEnable);
+
+void SetIdealBodyTemp(bool bEnable);
+
+void SetPalGodMode(bool bEnable); // targets current live partner Pal (OtomoPal)
+
+void SetInfiniteDurability(bool bEnable);
+
+void SetInstantFishing(bool bEnable);
+
 SDK::FGuid genGuid();
 
 //void ForceJoinGuild( SDK::APalPlayerCharacter* targetPlayer );
