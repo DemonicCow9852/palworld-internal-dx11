@@ -1351,6 +1351,24 @@ void SetMaxInventoryWeight(float mNewMaxWeight, bool bRestoreDefault)
 	InventoryData->MaxInventoryWeight_Cached = newWeight;
 }
 
+// UPalDebugSetting::bIgnoreOverWeightMove sits alongside other obvious
+// dev-cheat toggles on this class (bIsMutekiALL, bGetAllBulletItems,
+// bIgnoreItemDurabilityDecrease) - looks like the intended way to bypass
+// the overweight jump/speed penalty entirely. UPalDebugSetting is a
+// Config-marked singleton, so GetDefaultObj() (the CDO) is the actual
+// live settings instance the game reads from - same pattern as every
+// other class's GetDefaultObj() accessor.
+// Kept fully independent from SetMaxInventoryWeight/MaxWeightValue above -
+// both can be run at once so you can tell which one actually resolves it.
+void SetIgnoreOverWeightMove(bool bIgnore)
+{
+	SDK::UPalDebugSetting* debugSettings = SDK::UPalDebugSetting::GetDefaultObj();
+	if (!debugSettings)
+		return;
+
+	debugSettings->bIgnoreOverWeightMove = bIgnore;
+}
+
 //	
 void AddTechPoints(__int32 mPoints)
 {

@@ -74,6 +74,7 @@ public:
 	float CraftSpeedMultiplier = 1.0f;
 	bool IsMaxWeightHack = false;
 	float MaxWeightValue = 999999.0f;
+	bool IsIgnoreOverWeightMove = false;
 	bool IsInstantMapObjectRespawn = false;
 	bool IsFreezeSlot = false;
 	int FreezeSlotIndex = 0;

@@ -233,7 +233,7 @@ namespace DX11_Base
             {
                 ImGui::SameLine();
                 ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
-                ImGui::SliderFloat("##ArmorDefenseMod", &Config.ArmorDefenseMultiplier, 1.0f, 100.0f, "%.1fx");
+                ImGui::SliderFloat("##ArmorDefenseMod", &Config.ArmorDefenseMultiplier, 1.0f, 500.0f, "%.1fx");
             }
             // "Dump Armor Defense State" moved to the DEBUG tab, with the other Dump buttons.
             //ImGui::Checkbox("DefenseHack", &Config.IsDefuseModiler);
@@ -262,6 +262,8 @@ namespace DX11_Base
                 ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
                 ImGui::SliderFloat("##MaxWeight", &Config.MaxWeightValue, 500.0f, 999999.0f);
             }
+
+            ImGui::Checkbox("Ignore Overweight Movement Penalty", &Config.IsIgnoreOverWeightMove);
 
             // "Add Tech Points"/"Add Ancient Tech Points" used to be here,
             // direct-writing UPalTechnologyData::TechnologyPoint/bossTechnologyPoint.
@@ -1399,6 +1401,7 @@ namespace DX11_Base
         // restore path, it just never ran because these were gated by "if Is*Hack".
         SetCraftingSpeed(Config.CraftSpeedMultiplier, !Config.IsCraftSpeedHack);
         SetMaxInventoryWeight(Config.MaxWeightValue, !Config.IsMaxWeightHack);
+		SetIgnoreOverWeightMove(Config.IsIgnoreOverWeightMove);
 
         SetInstantMapObjectRespawn(Config.IsInstantMapObjectRespawn);
         SetCanCraftAllItems(Config.IsCanCraftAllItems);

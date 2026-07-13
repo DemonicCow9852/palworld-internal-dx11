@@ -143,6 +143,13 @@ void SetCraftingSpeed(float mNewSpeed, bool bRestoreDefault = false);
 
 void SetMaxInventoryWeight(float mNewMaxWeight, bool bRestoreDefault = false);
 
+// Separate mechanism from the weight-cap hack above: directly toggles the
+// game's own dev-debug flag that's meant to bypass the overweight movement
+// penalty entirely, regardless of actual weight ratio. Independent of
+// SetMaxInventoryWeight - keep both enabled simultaneously to test which
+// one (or both) actually fixes the jump/climb restriction.
+void SetIgnoreOverWeightMove(bool bIgnore);
+
 void AddTechPoints(__int32 mPoints);
 
 void AddAncientTechPoints(__int32 mPoints);
