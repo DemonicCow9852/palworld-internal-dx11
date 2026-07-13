@@ -215,6 +215,8 @@ namespace itemlist
         "Venom|Venom Gland",
         "Wood|Wood",
         "Wool|Wool"
+		"SkyIslandOre|Soralite",
+		"WorldTreeOre|Paloxite",
     };
 
     const auto eggs =
@@ -467,6 +469,10 @@ namespace itemlist
         "PalSphere|Pal Sphere",
         "PalSphere_Robbery|Radar Sphere",
         "PalSphere_Master|Ultra Sphere",
+		"PalSphere_Ultimate|Ultimate Sphere",
+		"PalSphere_Exotic|Exotic Sphere",
+		"PalSphere_Ancient_1|Sol Sphere",
+		"PalSphere_Ancient_2|Ancient Sphere",
     };
 
     const auto seeds =
@@ -475,6 +481,31 @@ namespace itemlist
         "LettuceSeeds|Lettuce Seeds",
         "TomatoSeeds|Tomato Seeds",
         "WheatSeeds|Wheat Seeds",
+    };
+	
+	    const auto implants =
+    {
+        "PalPassiveSkillChange_Consumable_WorldTree_ATK|Disposable Implant: Double-Edged Holy Sword",
+		"PalPassiveSkillChange_Consumable_WorldTree_DEF|Disposable Implant: Sacred Flesh",
+		"PalPassiveSkillChange_Consumable_WorldTree_CraftSpeed|Disposable Implant: Demonic Grasp",
+		"PalPassiveSkillChange_Consumable_WorldTree_FullStomach|Disposable Implant: World Tree's Bounty",
+		"PalPassiveSkillChange_Consumable_WorldTree_Sanity|Disposable Implant: Hermit",
+		"PalPassiveSkillChange_Consumable_WorldTree_MoveSpeed|Disposable Implant: Dimensional Leap",
+		"PalPassiveSkillChange_Consumable_WorldTree_ATK_DEF|Disposable Implant: God of Destruction",
+		"PalPassiveSkillChange_Consumable_MutationPal_Immortal|Disposable Implant: Immortality",
+		"PalPassiveSkillChange_Consumable_MutationPal_Mutant|Disposable Implant: Idiosyncratic",
+		"PalPassiveSkillChange_Consumable_MutationPal_Babysitter|Disposable Implant: Babysitter",
+		"PalPassiveSkillChange_Consumable_MutationPal_ExplosionResist|Disposable Implant: Heavily Armored",
+		"PalPassiveSkillChange_Consumable_RideJumpCount_Increase2|Disposable Implant: Skymarcher",
+		"PalPassiveSkillChange_Consumable_CraftSpeed_up3|Disposable Implant: Remarkable Craftsmanship",
+		"PalPassiveSkillChange_Consumable_Deffence_up3|Disposable Implant: Diamond Body",
+		"PalPassiveSkillChange_Consumable_PAL_ALLAttack_up3|Disposable Implant: Demon God",
+		"PalPassiveSkillChange_Consumable_PAL_FullStomach_Down_3|Disposable Implant: Mastery of Fasting",
+		"PalPassiveSkillChange_Consumable_PAL_Sanity_Down_3|Disposable Implant: Heart of the Immovable King",
+		"PalPassiveSkillChange_Consumable_MoveSpeed_up_3|Disposable Implant: Swift",
+		"PalPassiveSkillChange_Consumable_Stamina_Up_3|Disposable Implant: Eternal Engine",
+		"PalPassiveSkillChange_Consumable_Vampire|Disposable Implant: Vampiric",
+		"PalPassiveSkillChange_Consumable_SwimSpeed_up_3|Disposable Implant: King of the Waves",
     };
 
     const auto tools =
@@ -584,4 +615,87 @@ namespace itemlist
         "Ruby|Ruby",
         "Sapphire|Sapphire"
     };
+	
+	const auto ancientrelics =
+    {
+        "WorldTreeRelic_01|Decayed Ancient Relic",
+		"WorldTreeRelic_02|Dormant Ancient Relic",
+		"WorldTreeRelic_03|Gorgeous Ancient Relic",
+		"WorldTreeRelic_04|Glowing Ancient Relic",
+		"WorldTreeRelic_05|Glistening Ancient Relic",
+		"WorldTreeHolyWater|World Tree Holy Water",
+    };
+	
+		const auto versiononelaunchadditions =
+    {
+        "Supplement|Nutrient Tonic",
+		"Accessory_defense_1|Defense Pendant",
+		"Accessory_darkresist_1|Ring of Dark Resistance",
+		"Accessory_NeutralSupport|Neutral Support Whistle",
+		"Accessory_EXP|Growth Acceleration Bell",
+		"Accessory_Dogen|Dogen Emblem",
+		"Accessory_Silvegis|Silvegis Emblem",
+		"Accessory_Salesman|Wandering Merchant Charm",
+		"Accessory_Vanguard|Vanguard Charm",
+		"Accessory_ExplosionResist|Explosion-Resistant Undershirt",
+		"Accessory_WarsectTerra|Warsect Terra's Belt",
+		"Accessory_Toolbelt|Islander's Tool Belt",
+		"Accessory_NormalBaton|Celestial Emperor's Baton",
+		"Accessory_FireBaton|Flame Emperor's Baton",
+		"Accessory_WaterBaton|Lord of the Seas' Baton",
+		"Accessory_ElectricBaton|Lord of Lightnings' Baton",
+		"Accessory_GrassBaton|Spirit Emperor's Baton",
+		"Accessory_IceBaton|Ice Emperor's Baton",
+		"Accessory_GroundBaton|Earth Emperor's Baton",
+		"Accessory_DarkBaton|Lord of the Underworld's Baton",
+		"Accessory_DragonBaton|Divine Dragon's Baton",
+		"Accessory_AirWalker_1|Air Walker Mk I",
+		"Accessory_AirWalker_2|Air Walker Mk II",
+		"Accessory_AirWalker_3|Air Walker Mk III",
+		"Accessory_AirWalker_EX|Air Walker EX",
+		"Accessory_Hartaliss|Hartaliss Talisman",
+		"Otomo_DFFire_ElementBoost_1|Blazamut's Talisman",
+		"Otomo_DFWater_ElementBoost_1|Neptilius's Talisman",
+		"Otomo_DFElectric_ElementBoost_1|Orserk's Talisman",
+		"Otomo_DFLeaf_ElementBoost_1|Lyleen's Talisman",
+		"Otomo_DFIce_ElementBoost_1|Frostallion's Talisman",
+		"Otomo_DFEarth_ElementBoost_1|Anubis's Talisman",
+		"Otomo_DFDark_ElementBoost_1|Lyleen Noct's Talisman",
+		"Accessory_Reptyro|Reptyro Charm",
+		"Accessory_Wumpo|Wumpo Charm",
+		"Accessory_Blazehowl|Blazehowl Ring",
+		"Accessory_FalerisAqua|Faleris Aqua Ring",
+		"Accessory_FenglopeLux|Fenglope Lux Ring",
+		"Accessory_MenastingTerra|Menasting Terra Ring",
+		"Accessory_Vaelet|Vaelet Ring",
+		"Accessory_Katress|Katress Ring",
+		"Accessory_Elphidran|Elphidran Ring",
+		"Accessory_Cryolinx|Cryolinx Ring",
+		"Accessory_Faleris|Faleris Ring",
+		"Accessory_Trust|Ring of Trust",
+		"Accessory_Phantom|Phantom Ring",
+		"Otomo_DFDragon_ElementBoost_1|Jetragon's Talisman",
+		"Armor_LightAncient|Lightweight Ancient Armor",
+		"Armor_ColdAncient|Cold-Resistant Ancient Armor",
+		"Armor_HeatAncient|Heat-Resistant Ancient Armor",
+		"Armor_Ancient|Ancient Armor",
+		"Helmet_Ancient|Ancient Helm",
+		"Glider_WingPack|Wing Pack",
+		"Glider_WingCell|Wing Cell",
+		"Weapon_PlasmaCutter|Plasma Multicutter",
+		"Weapon_MechanicalBow|Mechanical Bow",
+		"Weapon_CombatSMG|Combat SMG",
+		"Weapon_PrototypeShotgun|Prototype Shotgun",
+		"Weapon_HeavyAssaultRifle|Heavy Assault Rifle",
+		"Weapon_TacticalGrenadeLauncher|Tactical Grenade Launcher",
+		"Weapon_LaserSword|Laser Sword",
+		"Weapon_BeamScatter|Beam Scatter",
+		"Weapon_DroneLauncher|Drone Launcher",
+		"Weapon_PlasmaRifle|Plasma Rifle",
+		"Weapon_BeamLauncher|Beam Launcher",
+		"Weapon_PrimitiveSword|Primitive Sword",
+		"Weapon_MetalBat|Metal Bat",
+		"Weapon_LilySpear_Enhanced|Enhanced Lily's Spear",
+    };
+	
 }
