@@ -712,19 +712,6 @@ namespace itemlist
 		"Weapon_MetalBat|Metal Bat",
 		"Weapon_LilySpear_Enhanced|Enhanced Lily's Spear",
     };
-	
-	// ============================================================
-    // SPHERE MODULES (new 1.0 category)
-    // ============================================================
-    const auto spheremodules =
-    {
-        "SphereModule_Heavy|Heavy Weight Module",
-        "SphereModule_Curve|Curve Module",
-        "SphereModule_Spiper|Sniper Module",          // icon asset itself is misspelled "Spiper" - verify in-game
-        "SphereModule_Curve2|Slider Module",
-        "SphereModule_Sniper2|Sniper Module II",
-        "SphereModule_Homing|Homing Module",
-    };
 
     // ============================================================
     // NEW WEAPONS (1.0 content)
