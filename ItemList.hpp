@@ -474,6 +474,21 @@ namespace itemlist
 		"PalSphere_Ancient_1|Sol Sphere",
 		"PalSphere_Ancient_2|Ancient Sphere",
     };
+	
+	// NOTE: SphereModule items aren't backed by a dedicated UClass in the SDK dump,
+    // so these IDs are inferred from their icon texture names (e.g.
+    // T_itemicon_SphereModule_Heavy.webp -> SphereModule_Heavy), the same pattern
+    // every other Sphere/Weapon ID in this file already follows. One is flagged
+    // below as uncertain - verify in-game before relying on it.
+    const auto spheremodules =
+    {
+        "SphereModule_Heavy|Heavy Weight Module",
+        "SphereModule_Curve|Curve Module",
+        "SphereModule_Spiper|Sniper Module",           // NOTE: icon asset is misspelled "Spiper" not "Sniper" - this looks like an actual dev typo baked into the asset name, so the StaticItemId is likely "SphereModule_Spiper" too, but verify with GetInventorySlotOverview() after spawning
+        "SphereModule_Curve2|Slider Module",
+        "SphereModule_Sniper2|Sniper Module II",
+        "SphereModule_Homing|Homing Module",
+    };
 
     const auto seeds =
     {
@@ -696,6 +711,233 @@ namespace itemlist
 		"Weapon_PrimitiveSword|Primitive Sword",
 		"Weapon_MetalBat|Metal Bat",
 		"Weapon_LilySpear_Enhanced|Enhanced Lily's Spear",
+    };
+	
+	// ============================================================
+    // SPHERE MODULES (new 1.0 category)
+    // ============================================================
+    const auto spheremodules =
+    {
+        "SphereModule_Heavy|Heavy Weight Module",
+        "SphereModule_Curve|Curve Module",
+        "SphereModule_Spiper|Sniper Module",          // icon asset itself is misspelled "Spiper" - verify in-game
+        "SphereModule_Curve2|Slider Module",
+        "SphereModule_Sniper2|Sniper Module II",
+        "SphereModule_Homing|Homing Module",
+    };
+
+    // ============================================================
+    // NEW WEAPONS (1.0 content)
+    // ============================================================
+    const auto newweapons =
+    {
+        "MetalDetector|Metal Detector",
+        "FlameThrower_Default|Flamethrower",
+        "GrenadeLauncher|Grenade Launcher",
+        "GuidedMissileLauncher|Guided Missile Launcher",
+        "MultiGuidedMissileLauncher|Multi Guided Missile Launcher",
+        "GatlingGun|Gatling Gun",
+        "LaserGatlingGun|Laser Gatling Gun",
+        "EnergyRocketLauncher|Plasma Cannon",
+        "SemiAutoShotgun|Semi-Auto Shotgun",
+        "OldRevolver|Old Revolver",
+        "MakeshiftAssaultRifle|Makeshift Assault Rifle",
+        "SemiAutoRifle|Semi-Auto Rifle",
+        "MakeshiftSubmachineGun|Makeshift SMG",
+        "SubmachineGun|SMG",
+        "MakeshiftShotgun|Makeshift Shotgun",
+        "CompoundBow|Compound Bow",
+        "EnergyShotgun|Energy Shotgun",
+        "OverheatRifle|Overheat Rifle",
+        "SFBow|Advanced Bow",
+        "ChargeLaserRifle|Charge Rifle",
+        "Katana|Katana",
+        "BeamSword|Beam Sword",
+        // Terraria-collab weapons (Tides of Terraria event set)
+        "YakushimaBlade002|Terra Blade",
+        "YakushimaBlade003|Terraprisma",
+        "YakushimaGun001|Vortex Beater",
+        "YakushimaLantern001|Nightglow",
+        "YakushimaBlade004|Excalibur",
+        "YakushimaBlade005|Legendary Meowmere",
+    };
+
+    // ============================================================
+    // NEW ACCESSORIES (1.0 content)
+    // Tier suffixes (+1/+2) NOT included below - I only have confirmed
+    // base-tier (tier 1) IDs from icon names. See notes at the end.
+    // ============================================================
+    const auto newaccessories =
+    {
+        "Accessory_Nonkilling|Ring of Mercy",
+        "Accessory_TalentChecker|Ability Glasses",
+        "Accessory_HeatColdResist_1|Multiclimate Undershirt",
+        "Accessory_MaxWeightUp|Ring of Freight",
+        "Accessory_JumpPower_Increase|Anti-Gravity Belt",
+        "Accessory_JumpCount_Increase|Double Jump Boots",
+        "Accessory_AirDash|Air Dash Boots",
+        "Accessory_Otomo_ElementBoost_Normal|Neutral Support Whistle",
+        "Accessory_Otomo_ElementBoost_Fire|Fire Support Whistle",
+        "Accessory_Otomo_ElementBoost_Water|Water Support Whistle",
+        "Accessory_Otomo_ElementBoost_Electricity|Electric Support Whistle",
+        "Accessory_Otomo_ElementBoost_Leaf|Grass Support Whistle",
+        "Accessory_Otomo_ElementBoost_Ice|Ice Support Whistle",
+        "Accessory_Otomo_ElementBoost_Earth|Ground Support Whistle",
+        "Accessory_Otomo_ElementBoost_Dark|Dark Support Whistle",
+        "Accessory_Otomo_ElementBoost_Dragon|Dragon Support Whistle",
+        "Accessory_Otomo_Attack_up|Attack Support Whistle",
+        "Accessory_Otomo_Defense_up|Defense Support Whistle",
+        "GasMask|Gas Mask",                             // uncertain - uses a stock icon pack, not the usual Accessory_ convention
+        "NightVisionGoggles|Night Vision Goggles",      // uncertain - same as above
+		"Accessory_HeatColdResist_2|Multiclimate Undershirt +1",
+        "Accessory_HeatColdResist_3|Multiclimate Undershirt +2",
+        "Accessory_MaxWeightUp_2|Ring of Freight +1",
+        "Accessory_MaxWeightUp_3|Ring of Freight +2",
+        "Accessory_Otomo_ElementBoost_Normal_2|Neutral Support Whistle +1",
+        "Accessory_Otomo_ElementBoost_Normal_3|Neutral Support Whistle +2",
+        "Accessory_Otomo_ElementBoost_Fire_2|Fire Support Whistle +1",
+        "Accessory_Otomo_ElementBoost_Fire_3|Fire Support Whistle +2",
+        "Accessory_Otomo_ElementBoost_Water_2|Water Support Whistle +1",
+        "Accessory_Otomo_ElementBoost_Water_3|Water Support Whistle +2",
+        "Accessory_Otomo_ElementBoost_Electricity_2|Electric Support Whistle +1",
+        "Accessory_Otomo_ElementBoost_Electricity_3|Electric Support Whistle +2",
+        "Accessory_Otomo_ElementBoost_Leaf_2|Grass Support Whistle +1",
+        "Accessory_Otomo_ElementBoost_Leaf_3|Grass Support Whistle +2",
+        "Accessory_Otomo_ElementBoost_Ice_2|Ice Support Whistle +1",
+        "Accessory_Otomo_ElementBoost_Ice_3|Ice Support Whistle +2",
+        "Accessory_Otomo_ElementBoost_Earth_2|Ground Support Whistle +1",
+        "Accessory_Otomo_ElementBoost_Earth_3|Ground Support Whistle +2",
+        "Accessory_Otomo_ElementBoost_Dark_2|Dark Support Whistle +1",
+        "Accessory_Otomo_ElementBoost_Dark_3|Dark Support Whistle +2",
+        "Accessory_Otomo_ElementBoost_Dragon_2|Dragon Support Whistle +1",
+        "Accessory_Otomo_ElementBoost_Dragon_3|Dragon Support Whistle +2",
+        "Accessory_Otomo_Attack_up_2|Attack Support Whistle +1",
+        "Accessory_Otomo_Attack_up_3|Attack Support Whistle +2",
+        "Accessory_Otomo_Defense_up_2|Defense Support Whistle +1",
+        "Accessory_Otomo_Defense_up_3|Defense Support Whistle +2",
+        // Jump/Dash boots: base tier I already listed IS the "+1" name on paldb
+        // (e.g. "Double Jump Boots" = tier 1). These are the higher tiers:
+        "Accessory_JumpCount_Increase_2|Triple Jump Boots",
+        "Accessory_JumpCount_Increase_3|Quadruple Jump Boots",
+        "Accessory_AirDash_2|Double Air Dash Boots",
+        "Accessory_AirDash_3|Triple Air Dash Boots",
+        "Accessory_AirDash_4|Quadruple Air Dash Boots",
+		"GasMask|Gas Mask",
+		"NightVisionGoggles|Night Vision Goggles",
+    };
+
+    // ============================================================
+    // NEW MATERIALS (1.0 content)
+    // ============================================================
+    const auto newmaterials =
+    {
+        "Processed_Wood|Wooden Board",
+        "HighGrade_Processed_Wood|High Quality Wooden Board",
+        "Wood_Fine|Hardwood",
+        "Wood_WorldTree|Mythical Wood",
+        "Plastic|Plasteel",
+        "Computer|Computer",
+        "AIcore|AI Core",
+        "Bio_Coolant|Cryogenic Coolant",
+        "Bio_Battery|Bio Battery",
+        "Thermal_Core|Thermal Core",
+        "Corrosive_Solvent|Corrosive Solvent",
+        "AncientParts2|Ancient Civilization Core",
+        "Chromium|Chromite",
+        "StainlessSteel|Hexolite",
+        "RainbowCrystal|Hexolite Quartz",
+        "NightStone|Nightstar Sand",
+        "PalDarkParts|Dark Fragment",
+        "ManganeseOre|Coralum Ore",
+        "ManganeseIngot|Coralum Ingot",
+        "SkyislandIngot|Soralite Ingot",
+        "WorldTreeIngot|Paloxite Ingot",
+        "Lotus_hp_01|Life Lotus (S)",
+        "Lotus_stamina_01|Stamina Lotus (S)",
+        "Lotus_attack_01|Power Lotus (S)",
+        "Lotus_workspeed_01|Speed Lotus (S)",
+        "Lotus_weight_01|Carrying Lotus (S)",
+        "Lotus_hp_02|Life Lotus (L)",
+        "Lotus_stamina_02|Stamina Lotus (L)",
+        "Lotus_attack_02|Power Lotus (L)",
+        "Lotus_workspeed_02|Speed Lotus (L)",
+        "Lotus_weight_02|Carrying Lotus (L)",
+        "MeteorDrop|Meteorite Fragment",
+        "DogCoin|Dog Coin",
+        "PalUpgradeStone4|Giant Pal Soul",
+        "AncientParts3|Ancient Pal Manuscript",
+        "PredatorCrystal|Predator Core",
+        "Jewelry_BattleTicket|Battle Ticket",
+        "YakushimaIngot001|Hallowed Bar",
+        "PalAwakening_Material_Water|Water Radiant Gem",
+        "PalAwakening_Material_Electric|Electric Radiant Gem",
+        "PalAwakening_Material_Ground|Ground Radiant Gem",
+        "PalAwakening_Material_Grass|Grass Radiant Gem",
+        "PalAwakening_Material_Fire|Fire Radiant Gem",
+        "PalAwakening_Material_Ice|Ice Radiant Gem",
+        "PalAwakening_Material_Dragon|Dragon Radiant Gem",
+        "PalAwakening_Material_Dark|Dark Radiant Gem",
+        "PalAwakening_Material_Neutral|Neutral Radiant Gem",
+        "PalItem_PinkRabbit|Ribbuny Ribbon",
+        "PalItem_MopBaby|Swee Hair",
+        "PalItem_NegativeOctopus|Killamari Tentacle",
+        "PalItem_RaijinDaughter|Dazzi Cloud",
+        "PalItem_LizardMan|Leezpunk Crest",
+        "Jewelry_BountyProof_1|Successful Bounty Token",  // uncertain icon-pack convention, verify
+		"PalEgg_WorldTree_01|Ominous Egg",
+        "PalEgg_WorldTree_02|Ominous Egg (2)",
+        "PalEgg_WorldTree_03|Large Ominous Egg",
+        "PalEgg_WorldTree_04|Large Ominous Egg (2)",
+        "PalEgg_WorldTree_05|Huge Ominous Egg",
+		"Jewelry_BountyProof_1|Successful Bounty Token"
+    };
+
+    // ============================================================
+    // NEW AMMO (1.0 content)
+    // ============================================================
+    const auto newammo =
+    {
+        "FlamethrowerBullet|Flamethrower Fuel",
+        "MissileBullet|Missile Ammo",
+        "GrenadeBullet|Grenade Ammo",
+        "GatlingBullet|Gatling Gun Ammo",
+        "MeteorBullet|Meteorite Ammo",
+        "EnergyLauncherBullet|Plasma Cartridge",
+        "LaserGatlingBullet|Laser Gatling Cartridge",
+        "ReinforcedArrow|Reinforced Arrow",
+        "SFArrow|Advanced Arrow",
+        "ChargeLaserRifleBullet|Charge Rifle Ammo",
+        "OverheatRifleBullet|Overheat Rifle Ammo",
+        "EnergyShotgunBullet|Energy Shotgun Ammo",
+        "PalDopingShotBullet|Boost Gun Ammo",
+    };
+
+    // ============================================================
+    // NEW GLIDERS (1.0 content)
+    // ============================================================
+    const auto newgliders =
+    {
+        "WingGlider|Wing Pack",
+        // "Hyper Glider" deliberately omitted - its icon is shared with the
+        // existing "Glider_Legendary" entry, but Hyper Glider and
+        // Glider_Legendary have different stats on paldb, so they can't share
+        // an ID. Actual ID unknown - verify in-game before adding.
+    };
+
+    // ============================================================
+    // NEW KEY ITEMS (non-saddle only - saddles require owning that Pal)
+    // ============================================================
+    const auto newkeyitems =
+    {
+        "AdditionalInventory_001|Small Pouch",
+        "AdditionalInventory_002|Medium Pouch",
+        "AdditionalInventory_003|Large Pouch",
+        "AdditionalInventory_004|Giant Pouch",
+        "Unlock_Picking|Lockpicking Tool v1",
+        "Unlock_Picking_Tier2|Lockpicking Tool v2",
+        "Unlock_Picking_Tier3|Lockpicking Tool v3",
+        "UnlockEquipmentSlot_Accessory|Mysterious Accessory Box",
+        "UnlockEquipmentSlot_Accessory_1|Box of Mystery Accessories",
     };
 	
 }

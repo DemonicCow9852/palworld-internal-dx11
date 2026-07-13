@@ -155,9 +155,16 @@ static const std::map<std::string, std::string>& GetItemDisplayNameMap()
         addList(itemlist::seeds);
         addList(itemlist::tools);
         addList(itemlist::weapons);
-		addList(itemlist::implants);
-		addList(itemlist::ancientrelics);
-		addList(itemlist::versiononelaunchadditions);
+        addList(itemlist::implants);
+        addList(itemlist::ancientrelics);
+        addList(itemlist::versiononelaunchadditions);
+        addList(itemlist::spheremodules);
+        addList(itemlist::newweapons);
+        addList(itemlist::newaccessories);
+        addList(itemlist::newmaterials);
+        addList(itemlist::newammo);
+        addList(itemlist::newgliders);
+        addList(itemlist::newkeyitems);
     }
     return map;
 }
@@ -717,7 +724,7 @@ namespace DX11_Base
 
             ImGui::InputInt("Num To Add", &num_to_add);
 
-            ImGui::Combo("Item Category", &category, "All\0Accessories\0Ammo\0Armor\0Crafting Materials\0Eggs\0Food\0Hats\0Medicine\0Money\0Other\0Pal Spheres\0Seeds\0Tools\0Weapons\0Implants\0Ancient Relics\0Launch Additions\0");
+            ImGui::Combo("Item Category", &category, "All\0Accessories\0Ammo\0Armor\0Crafting Materials\0Eggs\0Food\0Hats\0Medicine\0Money\0Other\0Pal Spheres\0Seeds\0Tools\0Weapons\0Implants\0Ancient Relics\0Launch Additions\0Sphere Modules\0New Weapons\0New Accessories\0New Materials\0New Ammo\0New Gliders\0New Key Items\0");
 
             std::vector<const char*> list;
 
@@ -765,15 +772,36 @@ namespace DX11_Base
                 case 14:
                     list = itemlist::weapons;
                     break;
-				case 15:
-					list = itemlist::implants;
-					break;
-				case 16:
-					list = itemlist::ancientrelics;
-					break;
-				case 17:
-					list = itemlist::versiononelaunchadditions;
-					break;
+                case 15:
+                    list = itemlist::implants;
+                    break;
+                case 16:
+                    list = itemlist::ancientrelics;
+                    break;
+                case 17:
+                    list = itemlist::versiononelaunchadditions;
+                    break;
+                case 18:
+                    list = itemlist::spheremodules;
+                    break;
+                case 19:
+                    list = itemlist::newweapons;
+                    break;
+                case 20:
+                    list = itemlist::newaccessories;
+                    break;
+                case 21:
+                    list = itemlist::newmaterials;
+                    break;
+                case 22:
+                    list = itemlist::newammo;
+                    break;
+                case 23:
+                    list = itemlist::newgliders;
+                    break;
+                case 24:
+                    list = itemlist::newkeyitems;
+                    break;
                 default: // 0 = All
                     for (auto* item : itemlist::accessories) list.push_back(item);
                     for (auto* item : itemlist::ammo) list.push_back(item);
@@ -789,9 +817,16 @@ namespace DX11_Base
                     for (auto* item : itemlist::seeds) list.push_back(item);
                     for (auto* item : itemlist::tools) list.push_back(item);
                     for (auto* item : itemlist::weapons) list.push_back(item);
-					for (auto* item : itemlist::implants) list.push_back(item);
-					for (auto* item : itemlist::ancientrelics) list.push_back(item);
-					for (auto* item : itemlist::versiononelaunchadditions) list.push_back(item);
+                    for (auto* item : itemlist::implants) list.push_back(item);
+                    for (auto* item : itemlist::ancientrelics) list.push_back(item);
+                    for (auto* item : itemlist::versiononelaunchadditions) list.push_back(item);
+                    for (auto* item : itemlist::spheremodules) list.push_back(item);
+                    for (auto* item : itemlist::newweapons) list.push_back(item);
+                    for (auto* item : itemlist::newaccessories) list.push_back(item);
+                    for (auto* item : itemlist::newmaterials) list.push_back(item);
+                    for (auto* item : itemlist::newammo) list.push_back(item);
+                    for (auto* item : itemlist::newgliders) list.push_back(item);
+                    for (auto* item : itemlist::newkeyitems) list.push_back(item);
             }
 
             int cur_size = 0;
