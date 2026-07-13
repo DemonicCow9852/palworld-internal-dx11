@@ -41,6 +41,7 @@ public:
 	int SpeedHackToggleKey = 0; // 0 = unbound; a Win32 virtual-key code once bound
 	int AttackHackToggleKey = 0;
 	int FlyToggleKey = 0;
+	int HealToFullKey = 0; // 0 = unbound
 	bool IsSpeedHackClean = false; // WIP tab only - see SpeedHackClean() in feature.cpp
 	float SpeedHackCleanMultiplier = 2.0f; // capped at 3.32x in UI, higher causes rubber-banding/desync
 	bool IsPlayerESP = false;

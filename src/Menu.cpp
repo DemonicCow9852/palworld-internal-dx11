@@ -216,6 +216,10 @@ namespace DX11_Base
             // already own (capped at 99 via the dupe mechanism), can't conjure ammo
             // from nothing. Freeze Slot Count in the Duping tab does the same with
             // more control if needed.
+			//
+			//
+			//No longer hidden
+			ImGui::Checkbox("InfAmmo", &Config.IsInfinAmmo);
 
             ImGui::Checkbox("AttackHack", &Config.IsAttackModiler);
             if (Config.IsAttackModiler)
@@ -262,6 +266,11 @@ namespace DX11_Base
                 ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
                 ImGui::SliderFloat("##MaxWeight", &Config.MaxWeightValue, 500.0f, 999999.0f);
             }
+			
+			static bool s_isCapturingHealKey = false;
+			ImGui::Text("Heal to Full:");
+			ImGui::SameLine();
+			KeybindUI(nullptr, "healtofull", &Config.HealToFullKey, &s_isCapturingHealKey);
 
             ImGui::Checkbox("Ignore Overweight Movement Penalty", &Config.IsIgnoreOverWeightMove);
 
@@ -1341,6 +1350,8 @@ namespace DX11_Base
             Config.IsSpeedHack = !Config.IsSpeedHack;
         if (Config.AttackHackToggleKey != 0 && (GetAsyncKeyState(Config.AttackHackToggleKey) & 1))
             Config.IsAttackModiler = !Config.IsAttackModiler;
+		if (Config.HealToFullKey != 0 && (GetAsyncKeyState(Config.HealToFullKey) & 1))
+			HealToFull();
 
         //  Toggle actual flight (only does anything while FLY is armed/checked)
         if (Config.IsFlyEnabled && Config.FlyToggleKey != 0 && (GetAsyncKeyState(Config.FlyToggleKey) & 1))
@@ -1394,7 +1405,6 @@ namespace DX11_Base
             UpdateFlyVerticalMovement();
 
         SetInfiniteAmmo(Config.IsInfinAmmo);
-        SetUnlimitedAmmoNative(Config.IsInfinAmmo);
 
         // Both called unconditionally, same reasoning as SpeedHackAllInOne above -
         // SetCraftingSpeed/SetMaxInventoryWeight already had (or now have) a real

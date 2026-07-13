@@ -1212,6 +1212,56 @@ void SetInfiniteAmmo(bool bInfAmmo)
 	}
 }
 
+void HealToFull()
+{
+	APalPlayerCharacter* pPalCharacter = Config.GetPalPlayerCharacter();
+	if (!pPalCharacter) return;
+
+	UPalCharacterParameterComponent* pParams = pPalCharacter->CharacterParameterComponent;
+	if (!pParams) return;
+
+	SDK::FFixedPoint64 fullHp;
+	fullHp.Value = pParams->GetMaxHP().Value;
+	pParams->SetHP(fullHp);
+
+	UPalIndividualCharacterParameter* ivParams = pParams->IndividualParameter;
+	if (ivParams)
+	{
+		auto& save = ivParams->SaveParameter;   // reference, not a copy - fixes the SetDemiGodMode bug
+		save.FullStomach = save.MaxFullStomach;
+		save.SanityValue = 100.f;
+	}
+}
+
+void BoostCurrentCaptureAttempt(SDK::APalCharacter* pTarget, float mCapturePower)
+{
+	if (!pTarget) return;
+
+	std::vector<SDK::AActor*> judges;
+	if (!config::GetAllActorsofType(SDK::APalCaptureJudgeObject::StaticClass(), &judges, true, false))
+		return;
+
+	for (SDK::AActor* actor : judges)
+	{
+		auto* judge = static_cast<SDK::APalCaptureJudgeObject*>(actor);
+		judge->ChallengeCapture_ToServer(pTarget, mCapturePower);
+	}
+}
+
+void InstantReload()
+{
+	APalPlayerCharacter* pPalCharacter = Config.GetPalPlayerCharacter();
+	if (!pPalCharacter || !pPalCharacter->ShooterComponent) return;
+
+	SDK::APalWeaponBase* weapon = pPalCharacter->ShooterComponent->GetHasWeapon();
+	if (!weapon) return;
+
+	SDK::UPalDynamicWeaponItemDataBase* dynamicData = weapon->TryGetDynamicWeaponData();
+	if (!dynamicData) return;
+
+	pPalCharacter->ShooterComponent->ReloadWeaponImmediate_ToServer(weapon->GetMagazineSize(), dynamicData);
+}
+
 // Diagnostic: prints the equipped weapon's actual ammo-related field/getter
 // values to console, so we can see directly whether IsRequiredBullet/
 // IsInfinityMagazine are really being set (and staying set) and whether the

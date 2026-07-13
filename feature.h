@@ -112,6 +112,22 @@ void SetPlayerHealth(float newHealthPercentage);
 
 void ReviveLocalPlayer();
 
+// Restores HP/hunger/sanity to max via UPalCharacterParameterComponent::SetHP -
+// a local Native (not NetServer) function, same category as bIsEnableMuteki -
+// works when hosting/singleplayer, unreliable as a joining client on someone
+// else's dedicated server.
+void HealToFull();
+
+// Boosts capture success via the real ChallengeCapture_ToServer NetServer RPC
+// on the transient APalCaptureJudgeObject that exists during an active throw.
+// Should work online since it's a genuine RPC, unlike the "Internal" function
+// other trainers use for this (host-only).
+void BoostCurrentCaptureAttempt(SDK::APalCharacter* pTarget, float mCapturePower = 1.0f);
+
+// Forces an immediate reload via the real ReloadWeaponImmediate_ToServer
+// NetServer RPC on UPalShooterComponent - should work online.
+void InstantReload();
+
 void ResetStamina();
 
 void GiveExperiencePoints(__int32 mXP);
