@@ -87,6 +87,14 @@ std::vector<std::pair<std::string, SDK::FVector>> GetFastTravelPoints();
 // and go. Label has the real dungeon name/level and minutes left.
 std::vector<std::pair<std::string, SDK::FVector>> GetActiveDungeonEntrances();
 
+// Pulls every boss spawner location LIVE from the game's own
+// UPalWorldMapUIData::AllBossSpawnerUIDataMap - same object RevealWholeMap()
+// already accesses via UPalUtility::GetLocalWorldMapData(appc). Unlike
+// database::locationMap (hardcoded, wiki-sourced, ~35 entries, missing
+// anything added since), this always reflects exactly what's spawnable in
+// the currently-running game version, old or new content alike.
+std::vector<std::pair<std::string, SDK::FVector>> GetAllBossSpawnLocations();
+
 void ExploitFly(bool IsFly);
 
 // Adds vertical fly movement (Space up, Left Ctrl down) - StartFlyToServer
@@ -129,6 +137,14 @@ void BoostCurrentCaptureAttempt(SDK::APalCharacter* pTarget, float mCapturePower
 void InstantReload();
 
 void ResetStamina();
+
+// Keeps the CURRENT RIDE PAL's stamina topped off every tick (mounts, incl.
+// flying mounts, drain their own SP separately from the player's - same
+// GetRidePal() pattern SpeedHackAllInOne already uses for movement speed).
+// No dedicated "no decrease" flag exists for riding/flying the way
+// bSwimming_NoDecreaseSP does for swimming, so this force-sets SP directly,
+// same mechanism as ResetStamina() already uses for the player.
+void KeepRidePalStaminaFull();
 
 void GiveExperiencePoints(__int32 mXP);
 
@@ -222,17 +238,9 @@ void AddWaypointLocation(std::string wpName);
 
 void RenderWaypointsToScreen();
 
-void SetNoCraftMaterialCost(bool bEnable);
-
-void SetNoBuildMaterialCost(bool bEnable);
-
 void GrantRelic(SDK::EPalRelicType type, __int32 count);
 
-void SetNoHunger(bool bEnable);
-
 void SetIdealBodyTemp(bool bEnable);
-
-void SetPalGodMode(bool bEnable); // targets current live partner Pal (OtomoPal)
 
 void SetInfiniteDurability(bool bEnable);
 

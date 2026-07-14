@@ -473,6 +473,7 @@ namespace itemlist
 		"PalSphere_Exotic|Exotic Sphere",
 		"PalSphere_Ancient_1|Sol Sphere",
 		"PalSphere_Ancient_2|Ancient Sphere",
+		"PalSphere_Debug|Debug Sphere",
     };
 	
 	// NOTE: SphereModule items aren't backed by a dedicated UClass in the SDK dump,

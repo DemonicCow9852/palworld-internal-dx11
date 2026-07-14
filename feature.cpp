@@ -665,6 +665,31 @@ std::vector<std::pair<std::string, FVector>> GetFastTravelPoints()
 	return result;
 }
 
+std::vector<std::pair<std::string, SDK::FVector>> GetAllBossSpawnLocations()
+{
+	std::vector<std::pair<std::string, SDK::FVector>> result;
+
+	APalPlayerCharacter* appc = Config.GetPalPlayerCharacter();
+	if (!appc)
+		return result;
+
+	UPalWorldMapUIData* mapData = UPalUtility::GetLocalWorldMapData(appc);
+	if (!mapData)
+		return result;
+
+	for (auto& pair : mapData->AllBossSpawnerUIDataMap)
+	{
+		const SDK::FPalUIBossSpawnerLoactionData& data = pair.Value();
+
+		char buf[128];
+		sprintf_s(buf, "%s Lv.%d", data.CharacterID.ToString().c_str(), data.Level);
+
+		result.emplace_back(buf, data.Location);
+	}
+
+	return result;
+}
+
 // Every APalDungeonEntrance found is now listed unconditionally - the earlier
 // "only if TryGetDungeonInstanceModel() succeeds" filter came back still
 // empty in-game even at a real entrance, which points at most Palworld
@@ -1016,6 +1041,22 @@ void ResetStamina()
 	pParams->ResetSP();
 }
 
+void KeepRidePalStaminaFull()
+{
+	APalPlayerCharacter* pPalCharacter = Config.GetPalPlayerCharacter();
+	if (!pPalCharacter) return;
+
+	APalCharacter* ridePal = UPalUtility::GetRidePal(pPalCharacter);
+	if (!ridePal) return;
+
+	UPalCharacterParameterComponent* palParams = ridePal->CharacterParameterComponent;
+	if (!palParams) return;
+
+	SDK::FFixedPoint64 fullSp;
+	fullSp.Value = palParams->GetMaxSP().Value;
+	palParams->SetSP(fullSp);
+}
+
 //	
 void GiveExperiencePoints(__int32 mXP)
 {
@@ -1262,19 +1303,6 @@ void InstantReload()
 	pPalCharacter->ShooterComponent->ReloadWeaponImmediate_ToServer(weapon->GetMagazineSize(), dynamicData);
 }
 
-// Same CDO-write pattern as SetIgnoreOverWeightMove
-void SetNoCraftMaterialCost(bool bEnable)
-{
-	SDK::UPalDebugSetting* ds = SDK::UPalDebugSetting::GetDefaultObj();
-	if (ds) ds->bNotConsumeMaterialsInCraft = bEnable;
-}
-
-void SetNoBuildMaterialCost(bool bEnable)
-{
-	SDK::UPalDebugSetting* ds = SDK::UPalDebugSetting::GetDefaultObj();
-	if (ds) ds->bNotConsumeMaterialsInBuild = bEnable;
-}
-
 void SetInfiniteDurability(bool bEnable)
 {
 	SDK::UPalDebugSetting* ds = SDK::UPalDebugSetting::GetDefaultObj();
@@ -1297,15 +1325,6 @@ void GrantRelic(SDK::EPalRelicType type, __int32 count)
 	cheatManager->GetRelic(type, count);
 }
 
-void SetNoHunger(bool bEnable)
-{
-	APalPlayerController* appco = Config.GetPalPlayerController();
-	if (!appco) return;
-	auto* cheatManager = (SDK::UPalCheatManager*)appco->CheatManager;
-	if (!cheatManager) return;
-	cheatManager->SetDebugFullStomachDecreaseRate(bEnable ? 0.0f : 1.0f); // 1.0 = normal rate, restore on disable
-}
-
 void SetIdealBodyTemp(bool bEnable)
 {
 	APalPlayerCharacter* pPalCharacter = Config.GetPalPlayerCharacter();
@@ -1315,25 +1334,6 @@ void SetIdealBodyTemp(bool bEnable)
 	tempComp->SetEnable(!bEnable); // disabling the component = no temperature effects at all
 }
 
-// Targets the currently-active partner Pal (OtomoPal) - same limitation as
-// party pal editing: works on the live actor, not pals still boxed/unspawned.
-void SetPalGodMode(bool bEnable)
-{
-	APalPlayerCharacter* pPalCharacter = Config.GetPalPlayerCharacter();
-	if (!pPalCharacter || !pPalCharacter->CharacterParameterComponent) return;
-
-	SDK::APalCharacter* otomoPal = pPalCharacter->CharacterParameterComponent->OtomoPal;
-	if (!otomoPal || !otomoPal->CharacterParameterComponent) return;
-
-	SDK::UPalCharacterParameterComponent* palParams = otomoPal->CharacterParameterComponent;
-	palParams->bIsEnableMuteki = bEnable;
-
-	if (bEnable)
-	{
-		SDK::FFixedPoint64 fullHp;
-		fullHp.Value = palParams->GetMaxHP().Value;
-		palParams->SetHP(fullHp);
-	}
 }
 
 // Diagnostic: prints the equipped weapon's actual ammo-related field/getter

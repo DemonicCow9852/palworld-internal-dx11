@@ -23,6 +23,7 @@ public:
 	bool IsAttackModiler = false;
 	bool IsDefuseModiler = false;
 	bool IsInfStamina = false;
+	bool IsInfiniteRideStamina = false;
 	bool IsSafe = true;
 	bool IsInfinAmmo = false;
 	bool IsGodMode = false;
@@ -95,11 +96,7 @@ public:
 	int StatusPointLevel = 99;
 	int ElixirTier = 2;
 	bool IsNoUseBulletHook = false;
-	bool IsNoCraftMaterialCost = false;
-	bool IsNoBuildMaterialCost = false;
-	bool IsNoHunger = false;
 	bool IsIdealBodyTemp = false;
-	bool IsPalGodMode = false;
 	bool IsInfiniteDurability = false;
 	bool IsInstantFishing = false;
 	int RelicGrantCount = 10;

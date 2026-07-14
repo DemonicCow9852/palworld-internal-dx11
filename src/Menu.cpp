@@ -210,26 +210,16 @@ namespace DX11_Base
             ImGui::Checkbox("Godmode", &Config.IsGodMode);
 
             ImGui::Checkbox("InfStamina", &Config.IsInfStamina);
+			
+			ImGui::Checkbox("Infinite Ride Pal Stamina (incl. Flying Mounts)", &Config.IsInfiniteRideStamina);
 
             // "InfAmmo" checkbox hidden - Config.IsInfinAmmo is still read every tick
             // (see the Loops() call below), just decluttered. Only tops up ammo you
             // already own (capped at 99 via the dupe mechanism), can't conjure ammo
             // from nothing. Freeze Slot Count in the Duping tab does the same with
             // more control if needed.
-			//
-			//
-			//No longer hidden
-			ImGui::Checkbox("InfAmmo", &Config.IsInfinAmmo);
-			
-			ImGui::Checkbox("No Craft Material Cost", &Config.IsNoCraftMaterialCost);
-			
-			ImGui::Checkbox("No Build Material Cost", &Config.IsNoBuildMaterialCost);
-			
-			ImGui::Checkbox("No Hunger", &Config.IsNoHunger);
 			
 			ImGui::Checkbox("Ideal Body Temperature", &Config.IsIdealBodyTemp);
-			
-			ImGui::Checkbox("Pal God Mode (Active Partner)", &Config.IsPalGodMode);
 			
 			ImGui::Checkbox("Infinite Weapon Durability", &Config.IsInfiniteDurability);
 			
@@ -240,7 +230,7 @@ namespace DX11_Base
             {
                 ImGui::SameLine();
                 ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
-                ImGui::SliderInt("##AttackMod", &Config.DamageUp, 1, 200000);
+                ImGui::SliderInt("##AttackMod", &Config.DamageUp, 1, 5000);
             }
 
             // Same idea as AttackHack, but for Defense - scales the equipped
@@ -711,13 +701,12 @@ namespace DX11_Base
             // already separate the columns visually.
             ImGui::Text("Boss Locations");
             int bossIdx = 0;
-            for (const auto& pair : database::locationMap)
+            for (const auto& boss : GetAllBossSpawnLocations())
             {
-                const std::string& locationName = pair.first;
-                std::string label = locationName + "##boss" + std::to_string(bossIdx++);
+                std::string label = boss.first + "##boss" + std::to_string(bossIdx++);
                 if (ImGui::Button(label.c_str(), ImVec2(ImGui::GetColumnWidth() - 10, 0)))
                 {
-                    SDK::FVector location = SDK::FVector(pair.second[0], pair.second[1], pair.second[2]);
+                    SDK::FVector location = boss.second;
                     AnyWhereTP(location, Config.IsSafe);
                 }
             }
@@ -1442,16 +1431,15 @@ namespace DX11_Base
         SetCraftingSpeed(Config.CraftSpeedMultiplier, !Config.IsCraftSpeedHack);
         SetMaxInventoryWeight(Config.MaxWeightValue, !Config.IsMaxWeightHack);
 		SetIgnoreOverWeightMove(Config.IsIgnoreOverWeightMove);
+		
+		if (Config.IsInfiniteRideStamina)
+		KeepRidePalStaminaFull();
 
         SetInstantMapObjectRespawn(Config.IsInstantMapObjectRespawn);
         SetCanCraftAllItems(Config.IsCanCraftAllItems);
         SetCanBuildAllBuildings(Config.IsCanBuildAllBuildings);
         SetWeightlessDodge(Config.IsWeightlessDodge);
-		SetNoCraftMaterialCost(Config.IsNoCraftMaterialCost);
-		SetNoBuildMaterialCost(Config.IsNoBuildMaterialCost);
-		SetNoHunger(Config.IsNoHunger);
 		SetIdealBodyTemp(Config.IsIdealBodyTemp);
-		SetPalGodMode(Config.IsPalGodMode);
 		SetInfiniteDurability(Config.IsInfiniteDurability);
 		SetInstantFishing(Config.IsInstantFishing);
 
