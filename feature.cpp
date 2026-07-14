@@ -753,30 +753,32 @@ std::vector<std::pair<std::string, SDK::FVector>> GetAllBossSpawnLocations()
 {
 	std::vector<std::pair<std::string, SDK::FVector>> result;
 
-	DX11_Base::g_Console->Show();
-
 	APalPlayerCharacter* appc = Config.GetPalPlayerCharacter();
 	if (!appc)
+		return result;
+
+	SDK::UDataTable* table = SDK::UPalMasterDataTablesUtility::GetBossSpawnerUIDataTable(appc);
+	if (!table)
 	{
-		DX11_Base::g_Console->printdbg("[BossSpawn] no local player\n", DX11_Base::Console::Colors::red);
+		DX11_Base::g_Console->printdbg("[BossSpawn] GetBossSpawnerUIDataTable() returned null\n", DX11_Base::Console::Colors::red);
 		return result;
 	}
 
-	UPalWorldMapUIData* mapData = UPalUtility::GetLocalWorldMapData(appc);
-	if (!mapData)
-	{
-		DX11_Base::g_Console->printdbg("[BossSpawn] GetLocalWorldMapData() returned null\n", DX11_Base::Console::Colors::red);
-		return result;
-	}
+	TArray<SDK::FName> rowNames;
+	SDK::UDataTableFunctionLibrary::GetDataTableRowNames(table, &rowNames);
 
-	DX11_Base::g_Console->printdbg("[BossSpawn] AllBossSpawnerUIDataMap.Num() = %d\n", DX11_Base::Console::Colors::yellow, mapData->AllBossSpawnerUIDataMap.Num());
+	DX11_Base::g_Console->printdbg("[BossSpawn] table has %d rows\n", DX11_Base::Console::Colors::yellow, rowNames.Num());
 
-	for (auto& pair : mapData->AllBossSpawnerUIDataMap)
+	for (int i = 0; i < rowNames.Num(); i++)
 	{
-		const SDK::FPalUIBossSpawnerLoactionData& data = pair.Value();
+		SDK::FPalUIBossSpawnerLoactionData row{};
+		if (!SDK::UDataTableFunctionLibrary::GetDataTableRowFromName(table, rowNames[i], &row))
+			continue;
+
 		char buf[128];
-		sprintf_s(buf, "%s Lv.%d", data.CharacterID.ToString().c_str(), data.Level);
-		result.emplace_back(buf, data.Location);
+		sprintf_s(buf, "%s Lv.%d", row.CharacterID.ToString().c_str(), row.Level);
+
+		result.emplace_back(buf, row.Location);
 	}
 
 	return result;
