@@ -93,7 +93,36 @@ std::vector<std::pair<std::string, SDK::FVector>> GetActiveDungeonEntrances();
 // database::locationMap (hardcoded, wiki-sourced, ~35 entries, missing
 // anything added since), this always reflects exactly what's spawnable in
 // the currently-running game version, old or new content alike.
-std::vector<std::pair<std::string, SDK::FVector>> GetAllBossSpawnLocations();
+std::vector<std::pair<std::string, SDK::FVector>> GetAllBossSpawnLocations()
+{
+	std::vector<std::pair<std::string, SDK::FVector>> result;
+
+	APalPlayerCharacter* appc = Config.GetPalPlayerCharacter();
+	if (!appc)
+	{
+		DX11_Base::g_Console->printdbg("[BossSpawn] no local player\n", DX11_Base::Console::Colors::red);
+		return result;
+	}
+
+	UPalWorldMapUIData* mapData = UPalUtility::GetLocalWorldMapData(appc);
+	if (!mapData)
+	{
+		DX11_Base::g_Console->printdbg("[BossSpawn] GetLocalWorldMapData() returned null\n", DX11_Base::Console::Colors::red);
+		return result;
+	}
+
+	DX11_Base::g_Console->printdbg("[BossSpawn] AllBossSpawnerUIDataMap.Num() = %d\n", DX11_Base::Console::Colors::yellow, mapData->AllBossSpawnerUIDataMap.Num());
+
+	for (auto& pair : mapData->AllBossSpawnerUIDataMap)
+	{
+		const SDK::FPalUIBossSpawnerLoactionData& data = pair.Value();
+		char buf[128];
+		sprintf_s(buf, "%s Lv.%d", data.CharacterID.ToString().c_str(), data.Level);
+		result.emplace_back(buf, data.Location);
+	}
+
+	return result;
+}
 
 void ExploitFly(bool IsFly);
 
