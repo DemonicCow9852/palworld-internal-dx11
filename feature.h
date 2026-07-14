@@ -93,20 +93,8 @@ std::vector<std::pair<std::string, SDK::FVector>> GetActiveDungeonEntrances();
 // database::locationMap (hardcoded, wiki-sourced, ~35 entries, missing
 // anything added since), this always reflects exactly what's spawnable in
 // the currently-running game version, old or new content alike.
-std::vector<std::pair<std::string, SDK::FVector>> GetAllBossSpawnLocations()
-{
-	std::vector<std::pair<std::string, SDK::FVector>> result;
+std::vector<std::pair<std::string, SDK::FVector>> GetAllBossSpawnLocations();
 
-	DX11_Base::g_Console->Show();   // <-- add this line
-
-	APalPlayerCharacter* appc = Config.GetPalPlayerCharacter();
-	if (!appc)
-	{
-		DX11_Base::g_Console->printdbg("[BossSpawn] no local player\n", DX11_Base::Console::Colors::red);
-		return result;
-	}
-	...
-	
 void ExploitFly(bool IsFly);
 
 // Adds vertical fly movement (Space up, Left Ctrl down) - StartFlyToServer

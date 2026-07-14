@@ -669,21 +669,29 @@ std::vector<std::pair<std::string, SDK::FVector>> GetAllBossSpawnLocations()
 {
 	std::vector<std::pair<std::string, SDK::FVector>> result;
 
+	DX11_Base::g_Console->Show();
+
 	APalPlayerCharacter* appc = Config.GetPalPlayerCharacter();
 	if (!appc)
+	{
+		DX11_Base::g_Console->printdbg("[BossSpawn] no local player\n", DX11_Base::Console::Colors::red);
 		return result;
+	}
 
 	UPalWorldMapUIData* mapData = UPalUtility::GetLocalWorldMapData(appc);
 	if (!mapData)
+	{
+		DX11_Base::g_Console->printdbg("[BossSpawn] GetLocalWorldMapData() returned null\n", DX11_Base::Console::Colors::red);
 		return result;
+	}
+
+	DX11_Base::g_Console->printdbg("[BossSpawn] AllBossSpawnerUIDataMap.Num() = %d\n", DX11_Base::Console::Colors::yellow, mapData->AllBossSpawnerUIDataMap.Num());
 
 	for (auto& pair : mapData->AllBossSpawnerUIDataMap)
 	{
 		const SDK::FPalUIBossSpawnerLoactionData& data = pair.Value();
-
 		char buf[128];
 		sprintf_s(buf, "%s Lv.%d", data.CharacterID.ToString().c_str(), data.Level);
-
 		result.emplace_back(buf, data.Location);
 	}
 
