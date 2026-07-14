@@ -753,6 +753,8 @@ std::vector<std::pair<std::string, SDK::FVector>> GetAllBossSpawnLocations()
 {
 	std::vector<std::pair<std::string, SDK::FVector>> result;
 
+	DX11_Base::g_Console->Show();   // <-- add this line back
+
 	APalPlayerCharacter* appc = Config.GetPalPlayerCharacter();
 	if (!appc)
 		return result;
