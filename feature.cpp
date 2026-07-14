@@ -633,6 +633,62 @@ void AnyWhereTP(FVector& vector, bool IsSafe)
 	pPalPlayerState->RequestRespawn();
 }
 
+std::string ResolveMsgIDToText(SDK::FName msgID)
+{
+	if (msgID.IsNone())
+		return "";
+
+	TArray<SDK::FName> tables = SDK::UKismetStringTableLibrary::GetRegisteredStringTables();
+
+	wchar_t ws[255];
+	swprintf(ws, 255, L"%hs", msgID.ToString().c_str());
+	SDK::FString key(ws);
+
+	for (int i = 0; i < tables.Num(); i++)
+	{
+		SDK::FText result = SDK::UKismetTextLibrary::TextFromStringTable(tables[i], key);
+		if (SDK::UKismetTextLibrary::TextIsFromStringTable(result))
+		{
+			std::string resolved = SDK::UKismetTextLibrary::Conv_TextToString(result).ToString();
+			DX11_Base::g_Console->printdbg("[AreaName] key=%s -> \"%s\"\n", DX11_Base::Console::Colors::green, msgID.ToString().c_str(), resolved.c_str());
+			return resolved;
+		}
+	}
+
+	DX11_Base::g_Console->printdbg("[AreaName] key=%s -> NOT RESOLVED (%d tables checked)\n", DX11_Base::Console::Colors::red, msgID.ToString().c_str(), tables.Num());
+	return msgID.ToString();
+}
+
+std::string GetNamedRegionForLocation(const SDK::FVector& location)
+{
+	std::vector<SDK::AActor*> regions;
+	if (!config::GetAllActorsofType(SDK::APalRegionAreaTriggerBase::StaticClass(), &regions, true, false))
+		return "";
+
+	SDK::AActor* closest = nullptr;
+	float closestDistSq = FLT_MAX;
+
+	for (SDK::AActor* actor : regions)
+	{
+		SDK::FVector regionLoc = actor->K2_GetActorLocation();
+		float dx = regionLoc.X - location.X;
+		float dy = regionLoc.Y - location.Y;
+		float dz = regionLoc.Z - location.Z;
+		float distSq = dx * dx + dy * dy + dz * dz;
+		if (distSq < closestDistSq)
+		{
+			closestDistSq = distSq;
+			closest = actor;
+		}
+	}
+
+	if (!closest)
+		return "";
+
+	auto* region = static_cast<SDK::APalRegionAreaTriggerBase*>(closest);
+	return ResolveMsgIDToText(region->AreaName.Key);
+}
+
 // database::locationMap (the hardcoded boss-location list in the Teleporter tab)
 // isn't sourced from the game at all - it's a fixed set of coordinates from an
 // external source (a community wiki/guide), so it can go stale or miss anything
@@ -657,7 +713,14 @@ std::vector<std::pair<std::string, FVector>> GetFastTravelPoints()
 		auto* point = static_cast<APalLevelObjectUnlockableFastTravelPoint*>(actor);
 		std::string rawId = point->FastTravelPointID.ToString();
 		auto it = database::fastTravelPointNames.find(rawId);
-		std::string label = (it != database::fastTravelPointNames.end()) ? it->second : rawId;
+		std::string label;
+		if (it != database::fastTravelPointNames.end())
+			label = it->second;
+		else
+		{
+			std::string regionName = GetNamedRegionForLocation(point->K2_GetActorLocation());
+			label = !regionName.empty() ? regionName : rawId;
+		}
 		if (!point->IsUnlocked())
 			label += " (locked)";
 		result.emplace_back(label, point->K2_GetActorLocation());

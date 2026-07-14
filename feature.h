@@ -82,6 +82,20 @@ void AnyWhereTP(SDK::FVector& vector, bool IsSafe);
 // (+" (locked)" if not yet unlocked) and location.
 std::vector<std::pair<std::string, SDK::FVector>> GetFastTravelPoints();
 
+// Resolves a WorldMapAreaData MsgID key to its actual display text by trying
+// every currently-registered string table (UKismetStringTableLibrary::
+// GetRegisteredStringTables()) until one resolves it (verified via
+// TextIsFromStringTable, not guessed) - falls back to the raw key if nothing
+// resolves.
+std::string ResolveMsgIDToText(SDK::FName msgID);
+
+// Finds the nearest APalRegionAreaTriggerBase (the actual "Fisherman's Point"/
+// "Foot of the Volcano" named-region system) to a given world location and
+// returns its resolved display name. Nearest-neighbor approximation since
+// trigger volume bounds/shape aren't in the SDK - a location right at the
+// edge of a large irregular region might match its neighbor instead.
+std::string GetNamedRegionForLocation(const SDK::FVector& location);
+
 // Scans dungeon entrances with a currently active instance
 // (StageModel/InstanceModel != null) - most dungeons are instanced and come
 // and go. Label has the real dungeon name/level and minutes left.
