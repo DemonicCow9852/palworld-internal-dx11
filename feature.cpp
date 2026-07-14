@@ -753,7 +753,7 @@ std::vector<std::pair<std::string, SDK::FVector>> GetAllBossSpawnLocations()
 {
 	std::vector<std::pair<std::string, SDK::FVector>> result;
 
-	DX11_Base::g_Console->Show();   // <-- add this line back
+	DX11_Base::g_Console->Show();
 
 	APalPlayerCharacter* appc = Config.GetPalPlayerCharacter();
 	if (!appc)
@@ -769,19 +769,32 @@ std::vector<std::pair<std::string, SDK::FVector>> GetAllBossSpawnLocations()
 	TArray<SDK::FName> rowNames;
 	SDK::UDataTableFunctionLibrary::GetDataTableRowNames(table, &rowNames);
 
-	DX11_Base::g_Console->printdbg("[BossSpawn] table has %d rows\n", DX11_Base::Console::Colors::yellow, rowNames.Num());
-
+	int successCount = 0;
 	for (int i = 0; i < rowNames.Num(); i++)
 	{
 		SDK::FPalUIBossSpawnerLoactionData row{};
-		if (!SDK::UDataTableFunctionLibrary::GetDataTableRowFromName(table, rowNames[i], &row))
-			continue;
+		bool ok = SDK::UDataTableFunctionLibrary::GetDataTableRowFromName(table, rowNames[i], &row);
 
-		char buf[128];
-		sprintf_s(buf, "%s Lv.%d", row.CharacterID.ToString().c_str(), row.Level);
-
-		result.emplace_back(buf, row.Location);
+		if (ok)
+		{
+			successCount++;
+			if (successCount <= 3) // print the first few successful rows only
+			{
+				DX11_Base::g_Console->printdbg("[BossSpawn] OK row=%s CharacterID=%s Level=%d Loc=(%.0f,%.0f,%.0f)\n",
+					DX11_Base::Console::Colors::green,
+					rowNames[i].ToString().c_str(),
+					row.CharacterID.ToString().c_str(),
+					row.Level,
+					row.Location.X, row.Location.Y, row.Location.Z);
+			}
+			char buf[128];
+			sprintf_s(buf, "%s Lv.%d", row.CharacterID.ToString().c_str(), row.Level);
+			result.emplace_back(buf, row.Location);
+		}
 	}
+
+	DX11_Base::g_Console->printdbg("[BossSpawn] %d/%d rows extracted successfully, result.size()=%zu\n",
+		DX11_Base::Console::Colors::yellow, successCount, rowNames.Num(), result.size());
 
 	return result;
 }
