@@ -766,35 +766,32 @@ std::vector<std::pair<std::string, SDK::FVector>> GetAllBossSpawnLocations()
 		return result;
 	}
 
-	TArray<SDK::FName> rowNames;
-	SDK::UDataTableFunctionLibrary::GetDataTableRowNames(table, &rowNames);
-
-	int successCount = 0;
-	for (int i = 0; i < rowNames.Num(); i++)
+	int printedSamples = 0;
+	for (auto& pair : table->RowMap)
 	{
-		SDK::FPalUIBossSpawnerLoactionData row{};
-		bool ok = SDK::UDataTableFunctionLibrary::GetDataTableRowFromName(table, rowNames[i], &row);
+		uint8_t* rowPtr = pair.Value();
+		if (!rowPtr)
+			continue;
 
-		if (ok)
+		auto* row = reinterpret_cast<SDK::FPalUIBossSpawnerLoactionData*>(rowPtr);
+
+		if (printedSamples < 3)
 		{
-			successCount++;
-			if (successCount <= 3) // print the first few successful rows only
-			{
-				DX11_Base::g_Console->printdbg("[BossSpawn] OK row=%s CharacterID=%s Level=%d Loc=(%.0f,%.0f,%.0f)\n",
-					DX11_Base::Console::Colors::green,
-					rowNames[i].ToString().c_str(),
-					row.CharacterID.ToString().c_str(),
-					row.Level,
-					row.Location.X, row.Location.Y, row.Location.Z);
-			}
-			char buf[128];
-			sprintf_s(buf, "%s Lv.%d", row.CharacterID.ToString().c_str(), row.Level);
-			result.emplace_back(buf, row.Location);
+			DX11_Base::g_Console->printdbg("[BossSpawn] OK row=%s CharacterID=%s Level=%d Loc=(%.0f,%.0f,%.0f)\n",
+				DX11_Base::Console::Colors::green,
+				pair.Key().ToString().c_str(),
+				row->CharacterID.ToString().c_str(),
+				row->Level,
+				row->Location.X, row->Location.Y, row->Location.Z);
+			printedSamples++;
 		}
+
+		char buf[128];
+		sprintf_s(buf, "%s Lv.%d", row->CharacterID.ToString().c_str(), row->Level);
+		result.emplace_back(buf, row->Location);
 	}
 
-	DX11_Base::g_Console->printdbg("[BossSpawn] %d/%d rows extracted successfully, result.size()=%zu\n",
-		DX11_Base::Console::Colors::yellow, successCount, rowNames.Num(), result.size());
+	DX11_Base::g_Console->printdbg("[BossSpawn] result.size()=%zu\n", DX11_Base::Console::Colors::yellow, result.size());
 
 	return result;
 }
