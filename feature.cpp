@@ -1334,8 +1334,6 @@ void SetIdealBodyTemp(bool bEnable)
 	tempComp->SetEnable(!bEnable); // disabling the component = no temperature effects at all
 }
 
-}
-
 // Diagnostic: prints the equipped weapon's actual ammo-related field/getter
 // values to console, so we can see directly whether IsRequiredBullet/
 // IsInfinityMagazine are really being set (and staying set) and whether the

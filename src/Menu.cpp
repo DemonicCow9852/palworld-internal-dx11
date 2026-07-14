@@ -327,15 +327,7 @@ namespace DX11_Base
                 ImGui::SliderFloat("##PALESPDISTANCE", &Config.mPalESPDistance, 1.0f, 10000.0f, "%.0f", ImGuiSliderFlags_AlwaysClamp);
             }
 			
-			ImGui::Checkbox("No Craft Material Cost", &Config.IsNoCraftMaterialCost);
-			
-			ImGui::Checkbox("No Build Material Cost", &Config.IsNoBuildMaterialCost);
-			
-			ImGui::Checkbox("No Hunger", &Config.IsNoHunger);
-			
 			ImGui::Checkbox("Ideal Body Temperature", &Config.IsIdealBodyTemp);
-			
-			ImGui::Checkbox("Pal God Mode (Active Partner)", &Config.IsPalGodMode);
 			
 			ImGui::Checkbox("Infinite Weapon Durability", &Config.IsInfiniteDurability);
 			
