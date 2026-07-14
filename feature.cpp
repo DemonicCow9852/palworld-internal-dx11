@@ -618,6 +618,20 @@ void SpawnMultiple_ItemsToInventory(config::QuickItemSet Set)
 	}
 }
 
+void SpawnDebugSpheres(__int32 mCount)
+{
+	APalPlayerCharacter* appc = Config.GetPalPlayerCharacter();
+	if (!appc) return;
+	APalPlayerController* appco = appc->GetPalPlayerController();
+	if (!appco) return;
+	APalPlayerState* apps = appco->GetPalPlayerState();
+	if (!apps) return;
+	SDK::UPalPlayerInventoryData* InventoryData = apps->GetInventoryData();
+	if (!InventoryData) return;
+
+	AddItemToInventoryByName(InventoryData, _strdup("PalSphere_Debug"), mCount);
+}
+
 //	
 void AnyWhereTP(FVector& vector, bool IsSafe)
 {
@@ -647,16 +661,23 @@ std::string ResolveMsgIDToText(SDK::FName msgID)
 	for (int i = 0; i < tables.Num(); i++)
 	{
 		SDK::FText result = SDK::UKismetTextLibrary::TextFromStringTable(tables[i], key);
-		if (SDK::UKismetTextLibrary::TextIsFromStringTable(result))
-		{
-			std::string resolved = SDK::UKismetTextLibrary::Conv_TextToString(result).ToString();
-			DX11_Base::g_Console->printdbg("[AreaName] key=%s -> \"%s\"\n", DX11_Base::Console::Colors::green, msgID.ToString().c_str(), resolved.c_str());
-			return resolved;
-		}
+		if (!SDK::UKismetTextLibrary::TextIsFromStringTable(result))
+			continue;
+
+		std::string resolved = SDK::UKismetTextLibrary::Conv_TextToString(result).ToString();
+
+		// TextIsFromStringTable() only confirms the FText's *type* came from
+		// a string-table call, not that this specific key/table pair had a
+		// real entry - a missing key still returns a "from string table"
+		// FText whose actual text is this placeholder. Must reject it
+		// explicitly and keep searching other tables.
+		if (resolved.find("MISSING STRING TABLE ENTRY") != std::string::npos)
+			continue;
+
+		return resolved;
 	}
 
-	DX11_Base::g_Console->printdbg("[AreaName] key=%s -> NOT RESOLVED (%d tables checked)\n", DX11_Base::Console::Colors::red, msgID.ToString().c_str(), tables.Num());
-	return msgID.ToString();
+	return msgID.ToString(); // nothing resolved in any table - fall back to raw key
 }
 
 std::string GetNamedRegionForLocation(const SDK::FVector& location)

@@ -275,6 +275,11 @@ namespace DX11_Base
 			ImGui::Text("Heal to Full:");
 			ImGui::SameLine();
 			KeybindUI(nullptr, "healtofull", &Config.HealToFullKey, &s_isCapturingHealKey);
+			
+			static bool s_isCapturingDebugSphereKey = false;
+			ImGui::Text("Spawn 100 Debug Spheres:");
+			ImGui::SameLine();
+			KeybindUI(nullptr, "debugsphere", &Config.DebugSphereSpawnKey, &s_isCapturingDebugSphereKey);
 
             ImGui::Checkbox("Ignore Overweight Movement Penalty", &Config.IsIgnoreOverWeightMove);
 
@@ -1363,6 +1368,9 @@ namespace DX11_Base
             Config.IsAttackModiler = !Config.IsAttackModiler;
 		if (Config.HealToFullKey != 0 && (GetAsyncKeyState(Config.HealToFullKey) & 1))
 			HealToFull();
+		if (Config.DebugSphereSpawnKey != 0 && (GetAsyncKeyState(Config.DebugSphereSpawnKey) & 1))
+			SpawnDebugSpheres(100);
+		
 
         //  Toggle actual flight (only does anything while FLY is armed/checked)
         if (Config.IsFlyEnabled && Config.FlyToggleKey != 0 && (GetAsyncKeyState(Config.FlyToggleKey) & 1))

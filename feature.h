@@ -76,6 +76,11 @@ SDK::EPalItemOperationResult GiveRealItemByName(const char* itemName, __int32 mC
 
 void SpawnMultiple_ItemsToInventory(config::QuickItemSet Set);
 
+// Spawns mCount Debug Spheres (PalSphere_Debug) via the ghost-item path
+// (AddItemToInventoryByName) - same limitations as the Item Spawner tab:
+// local-only, won't survive reload/dupe. Fine for quick capture-testing.
+void SpawnDebugSpheres(__int32 mCount = 100);
+
 void AnyWhereTP(SDK::FVector& vector, bool IsSafe);
 
 // Scans the live world for fast-travel point actors, returns FastTravelPointID
