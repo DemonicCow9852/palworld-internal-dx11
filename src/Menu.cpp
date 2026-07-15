@@ -270,16 +270,18 @@ namespace DX11_Base
                 ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
                 ImGui::SliderFloat("##MaxWeight", &Config.MaxWeightValue, 500.0f, 999999.0f);
             }
-			
+
+#if 0
 			static bool s_isCapturingHealKey = false;
 			ImGui::Text("Heal to Full:");
 			ImGui::SameLine();
 			KeybindUI(nullptr, "healtofull", &Config.HealToFullKey, &s_isCapturingHealKey);
-			
-			static bool s_isCapturingDebugSphereKey = false;
-			ImGui::Text("Spawn 100 Debug Spheres:");
-			ImGui::SameLine();
-			KeybindUI(nullptr, "debugsphere", &Config.DebugSphereSpawnKey, &s_isCapturingDebugSphereKey);
+
+            static bool s_isCapturingDebugSphereKey = false;
+            ImGui::Text("Spawn 100 Debug Spheres:");
+            ImGui::SameLine();
+            KeybindUI(nullptr, "debugsphere", &Config.DebugSphereSpawnKey, &s_isCapturingDebugSphereKey);
+#endif
 
             ImGui::Checkbox("Ignore Overweight Movement Penalty", &Config.IsIgnoreOverWeightMove);
 
@@ -331,12 +333,6 @@ namespace DX11_Base
                 ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
                 ImGui::SliderFloat("##PALESPDISTANCE", &Config.mPalESPDistance, 1.0f, 10000.0f, "%.0f", ImGuiSliderFlags_AlwaysClamp);
             }
-			
-			ImGui::Checkbox("Ideal Body Temperature", &Config.IsIdealBodyTemp);
-			
-			ImGui::Checkbox("Infinite Weapon Durability", &Config.IsInfiniteDurability);
-			
-			ImGui::Checkbox("Instant Fishing", &Config.IsInstantFishing);
 
             ImGui::Separator();
             // "New Name" input + "Set New Name" button hidden, not needed.
@@ -354,8 +350,6 @@ namespace DX11_Base
             // One-shot, rarely-needed button - doesn't need to be prominent.
             if (ImGui::Button("Reveal Whole Map", ImVec2(ImGui::GetContentRegionAvail().x - 3, 20)))
                 RevealWholeMap();
-			if (ImGui::Button("Grant Relic (Effigy)"))
-				GrantRelic(SDK::EPalRelicType::HungerReduction, Config.RelicGrantCount); // swap enum per dropdown selection
         }
 
         // Emptied out - everything here moved to TABPlayer (Show Quick Tab, Open
@@ -1069,7 +1063,7 @@ namespace DX11_Base
 
     void Menu::ManagerMenu()
     {
-        if (!ImGui::Begin("Manager", &g_GameVariables->m_ShowMenu, 96))
+        if (!ImGui::Begin("PalWorld", &g_GameVariables->m_ShowMenu, ImGuiWindowFlags_NoCollapse))
         {
             ImGui::End();
             return;
@@ -1213,7 +1207,12 @@ namespace DX11_Base
         // here keeps AutoResize's width-fitting behavior while forcing a scrollbar once
         // content overflows the max height, instead of the window itself growing.
         ImGui::SetNextWindowSizeConstraints(ImVec2(0, 0), ImVec2(FLT_MAX, 700.0f));
-        if (!ImGui::Begin("PalWorld", &g_GameVariables->m_ShowMenu, 96))
+        ImVec2 minSize = ImVec2(400.0f, 300.0f);
+        ImVec2 maxSize = ImVec2(1200.0f, 800.0f);
+
+        ImGui::SetNextWindowSizeConstraints(minSize, maxSize);
+
+        if (!ImGui::Begin("PalWorld", &g_GameVariables->m_ShowMenu, ImGuiWindowFlags_NoCollapse))
         {
             ImGui::End();
             return;
