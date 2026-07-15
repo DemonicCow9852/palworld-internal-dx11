@@ -1158,9 +1158,7 @@ void KeepRidePalStaminaFull()
 	UPalCharacterParameterComponent* palParams = ridePal->CharacterParameterComponent;
 	if (!palParams) return;
 
-	SDK::FFixedPoint64 fullSp;
-	fullSp.Value = palParams->GetMaxSP().Value;
-	palParams->SetSP(fullSp);
+	palParams->SetSP(palParams->GetMaxSP());
 }
 
 //	

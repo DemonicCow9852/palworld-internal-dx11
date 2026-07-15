@@ -697,7 +697,7 @@ namespace itemlist
 		"Armor_Ancient|Ancient Armor",
 		"Helmet_Ancient|Ancient Helm",
 		"Glider_WingPack|Wing Pack",
-		"Glider_WingCell|Wing Cell",
+		"WingGlider_Fuel|Wing Cell",
 		"Weapon_PlasmaCutter|Plasma Multicutter",
 		"Weapon_MechanicalBow|Mechanical Bow",
 		"Weapon_CombatSMG|Combat SMG",
