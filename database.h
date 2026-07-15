@@ -909,8 +909,8 @@ namespace database
 	 "Armor_HeatAncient",
 	 "Armor_Ancient",
 	 "Helmet_Ancient",
-	 "Glider_WingPack",
-	 "Glider_WingCell",
+	 "Glider_WingPack", 
+	 "WingGlider_Fuel", // 
 	 "Weapon_PlasmaCutter",
 	 "Weapon_MechanicalBow",
 	 "Weapon_CombatSMG",
